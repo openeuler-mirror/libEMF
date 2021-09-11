@@ -1,13 +1,13 @@
 Name:           libEMF
 Version:        1.0.9
-Release:        8
+Release:        9
 Summary:        A library for generating Enhanced Metafiles
 License:        LGPLv2+ and GPLv2+
 URL:            http://libemf.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
 Patch0000:      support-aarch64.patch
 
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ chrpath
 
 %description
 libEMF is designed to be used as a driver for other programs such as Grace and gunplot
@@ -37,6 +37,7 @@ Documentation for libEMF.
 %install
 export CPPROG="cp -p"
 %make_install
+chrpath -d %{buildroot}%{_bindir}/printemf
 %delete_la
 
 %check
@@ -59,6 +60,9 @@ make check
 %doc doc/html/* NEWS README
 
 %changelog
+* Fri Sep 10 2021 Pengju Jiang <jiangpengju2@huawei.com> - 1.0.9-9
+- solve the rpath problem
+
 * Wed Jan 15 2020 qinjian <qinjian18@huawei.com> - 1.0.9-8
 - rename patch
 
