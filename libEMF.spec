@@ -1,11 +1,10 @@
 Name:           libEMF
-Version:        1.0.9
-Release:        9
+Version:        1.0.13
+Release:        1
 Summary:        A library for generating Enhanced Metafiles
 License:        LGPLv2+ and GPLv2+
 URL:            http://libemf.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
-Patch0000:      support-aarch64.patch
 
 BuildRequires:  gcc-c++ chrpath
 
@@ -60,6 +59,9 @@ make check
 %doc doc/html/* NEWS README
 
 %changelog
+* Tue Sep 28 2021 yaoxin <yaoxin30@huawei.com> - 1.0.13-1
+- Upgrade libEMF to 1.0.13; fix CVE-2020-13999 CVE-2020-11863 CVE-2020-11865 CVE-2020-11866 CVE-2020-11864
+
 * Fri Sep 10 2021 Pengju Jiang <jiangpengju2@huawei.com> - 1.0.9-9
 - solve the rpath problem
 
