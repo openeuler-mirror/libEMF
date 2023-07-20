@@ -1,0 +1,140 @@
+From 5d147320abe6989d34765c9ab7dbda150496708d Mon Sep 17 00:00:00 2001
+From: doupengda <doupengda@loongson.cn>
+Date: Wed, 5 Jul 2023 08:53:52 +0000
+Subject: [PATCH] libEMF add loongarch64
+
+---
+ include/libEMF/wine/winnt.h | 103 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
+
+diff --git a/include/libEMF/wine/winnt.h b/include/libEMF/wine/winnt.h
+index 39e2f90..fc0a514 100644
+--- a/include/libEMF/wine/winnt.h
++++ b/include/libEMF/wine/winnt.h
+@@ -69,6 +69,10 @@
+ # define  WORDS_BIGENDIAN
+ # define  BITFIELDS_BIGENDIAN
+ # undef  ALLOW_UNALIGNED_ACCESS
++#elif defined(__loongarch64)
++# undef  WORDS_BIGENDIAN
++# undef  BITFIELDS_BIGENDIAN
++# undef  ALLOW_UNALIGNED_ACCESS
+ #elif !defined(RC_INVOKED)
+ # error Unknown CPU architecture!
+ #endif
+@@ -480,6 +484,7 @@ typedef HANDLE         *PHANDLE,    *LPHANDLE;
+ #define PROCESSOR_ARCHITECTURE_PPC	3
+ #define PROCESSOR_ARCHITECTURE_SHX	4
+ #define PROCESSOR_ARCHITECTURE_ARM	5
++#define PROCESSOR_ARCHITECTURE_LOONGARCH64	6
+ #define PROCESSOR_ARCHITECTURE_UNKNOWN	0xFFFF
+ 
+ /* dwProcessorType */
+@@ -1020,6 +1025,104 @@ typedef struct _CONTEXT
+ 
+ #endif  /* _ALPHA_ */
+ 
++#if defined(__loongarch64)
++
++#define CONTEXT_LOONGARCH64   0x00010000
++
++#define CONTEXT_CONTROL         (CONTEXT_LOONGARCH64 | 0x00000001)
++#define CONTEXT_FLOATING_POINT  (CONTEXT_LOONGARCH64 | 0x00000002)
++#define CONTEXT_INTEGER         (CONTEXT_LOONGARCH64 | 0x00000004)
++
++#define CONTEXT_FULL (CONTEXT_CONTROL | CONTEXT_FLOATING_POINT | CONTEXT_INTEGER)
++
++typedef struct _CONTEXT
++{
++    ULONG ContextFlags;
++    /* CONTEXT_INTEGER */
++    union
++    {
++        struct
++        {
++            DWORD64 R1;
++            DWORD64 R2;
++            DWORD64 R3;
++            DWORD64 R4;
++            DWORD64 R5;
++            DWORD64 R6;
++            DWORD64 R7;
++            DWORD64 R8;
++            DWORD64 R9;
++            DWORD64 R10;
++            DWORD64 R11;
++            DWORD64 R12;
++            DWORD64 R13;
++            DWORD64 R14;
++            DWORD64 R15;
++            DWORD64 R16;
++            DWORD64 R17;
++            DWORD64 R18;
++            DWORD64 R19;
++            DWORD64 R20;
++            DWORD64 R21;
++            DWORD64 R22;
++            DWORD64 R23;
++            DWORD64 R24;
++            DWORD64 R25;
++            DWORD64 R26;
++            DWORD64 R27;
++            DWORD64 R28;
++            DWORD64 R29;
++            DWORD64 R30;
++            DWORD64 R31;
++        } DUMMYSTRUCTNAME;
++        DWORD64 R[31];
++    } DUMMYUNIONNAME1;
++    /* CONTEXT_CONTROL */
++    DWORD64 pc;
++    /* CONTEXT_FLOATING_POINT */
++    union
++    {
++        struct
++        {
++            DWORD64 F0;
++            DWORD64 F1;
++            DWORD64 F2;
++            DWORD64 F3;
++            DWORD64 F4;
++            DWORD64 F5;
++            DWORD64 F6;
++            DWORD64 F7;
++            DWORD64 F8;
++            DWORD64 F9;
++            DWORD64 F10;
++            DWORD64 F11;
++            DWORD64 F12;
++            DWORD64 F13;
++            DWORD64 F14;
++            DWORD64 F15;
++            DWORD64 F16;
++            DWORD64 F17;
++            DWORD64 F18;
++            DWORD64 F19;
++            DWORD64 F20;
++            DWORD64 F21;
++            DWORD64 F22;
++            DWORD64 F23;
++            DWORD64 F24;
++            DWORD64 F25;
++            DWORD64 F26;
++            DWORD64 F27;
++            DWORD64 F28;
++            DWORD64 F29;
++            DWORD64 F30;
++            DWORD64 F31;
++        } DUMMYSTRUCTNAME;
++        DWORD64 F[32];
++    } DUMMYUNIONNAME2;
++    /* CONTEXT_DEBUG_REGISTERS */
++} CONTEXT;
++#endif /* __loongarch64 */
++
+ /* Mips context definitions */
+ #if defined(_MIPS_) || defined(__MIPS__) || defined(__mips__)
+ 
+-- 
+2.33.0
+

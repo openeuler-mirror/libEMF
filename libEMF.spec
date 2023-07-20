@@ -1,10 +1,13 @@
 Name:           libEMF
 Version:        1.0.13
-Release:        1
+Release:        2
 Summary:        A library for generating Enhanced Metafiles
 License:        LGPLv2+ and GPLv2+
 URL:            http://libemf.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
+%ifarch loongarch64
+Patch0:         0001-libEMF-add-loongarch64.patch
+%endif
 
 BuildRequires:  gcc-c++ chrpath
 
@@ -59,6 +62,9 @@ make check
 %doc doc/html/* NEWS README
 
 %changelog
+* Thu Jul 20 2023 doupengda <doupengda@loongson.cn> - 1.0.13-2
+- libEMF add support for loongarch64
+
 * Tue Sep 28 2021 yaoxin <yaoxin30@huawei.com> - 1.0.13-1
 - Upgrade libEMF to 1.0.13; fix CVE-2020-13999 CVE-2020-11863 CVE-2020-11865 CVE-2020-11866 CVE-2020-11864
 
