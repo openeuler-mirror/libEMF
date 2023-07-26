@@ -1,12 +1,16 @@
 Name:           libEMF
 Version:        1.0.13
-Release:        1
+Release:        2
 Summary:        A library for generating Enhanced Metafiles
 License:        LGPLv2+ and GPLv2+
 URL:            http://libemf.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
 
 BuildRequires:  gcc-c++ chrpath
+
+%ifarch riscv64
+Patch1: 0001-libemf-1.0.13-add-riscv64.patch
+%endif
 
 %description
 libEMF is designed to be used as a driver for other programs such as Grace and gunplot
@@ -59,6 +63,10 @@ make check
 %doc doc/html/* NEWS README
 
 %changelog
+* Mon Jan 03 2022 wujie <wujie@nj.iscas.ac.cn> - 1.0.13-2
+- Add riscv64 support from http://fedora.riscv.rocks/koji/buildinfo?buildID=24988
+  Author is David Abdurachmanov <david.abdurachmanov@gmail.com>
+
 * Tue Sep 28 2021 yaoxin <yaoxin30@huawei.com> - 1.0.13-1
 - Upgrade libEMF to 1.0.13; fix CVE-2020-13999 CVE-2020-11863 CVE-2020-11865 CVE-2020-11866 CVE-2020-11864
 
