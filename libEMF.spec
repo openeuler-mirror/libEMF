@@ -1,11 +1,12 @@
 Name:           libEMF
 Version:        1.0.13
-Release:        2
+Release:        3
 Summary:        A library for generating Enhanced Metafiles
 License:        LGPLv2+ and GPLv2+
 URL:            http://libemf.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
 Patch0:         0001-libEMF-add-loongarch64.patch
+Patch1:         0002-libemf-1.0.13-add-riscv64.patch
 
 BuildRequires:  gcc-c++ chrpath
 
@@ -60,6 +61,10 @@ make check
 %doc doc/html/* NEWS README
 
 %changelog
+* Thu Jul 20 2023 wujie <wujie@nj.iscas.ac.cn> - 1.0.13-3
+- Add riscv64 support from http://fedora.riscv.rocks/koji/buildinfo?buildID=24988
+  Author is David Abdurachmanov <david.abdurachmanov@gmail.com>
+
 * Wed Jul 5 2023 doupengda <doupengda@loongson.cn> - 1.0.13-2
 - libEMF add support for loongarch64
 
